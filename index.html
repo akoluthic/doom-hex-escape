@@ -1,0 +1,164 @@
+<html>
+<header>
+	<title>Doom Hex: Escape</title>
+	<link rel="stylesheet" href="css/main.css" type="text/css"/>
+	<link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type='text/javascript' src='js/doomhex.js'></script>
+</header>
+<body>
+	<audio id="sound-click">
+		<source src="audio/click.mp3"></source>
+		<source src="audio/click.ogg"></source>
+	</audio>
+	<audio id="sound-hex">
+		<source src="audio/hex.mp3"></source>
+		<source src="audio/hex.ogg"></source>
+	</audio>
+	<audio id="sound-hit">
+		<source src="audio/hit.mp3"></source>
+		<source src="audio/hit.ogg"></source>
+	</audio>
+	<audio id="sound-nope">
+		<source src="audio/nope.mp3"></source>
+		<source src="audio/nope.ogg"></source>
+	</audio>
+	<audio id="sound-kill">
+		<source src="audio/kill.mp3"></source>
+		<source src="audio/kill.ogg"></source>
+	</audio>
+	<audio id="sound-heal">
+		<source src="audio/heal.mp3"></source>
+		<source src="audio/heal.ogg"></source>
+	</audio>
+	<div id="container">
+		<div id="main-menu" style="display:none">
+			<img id="logo" src="img/logo.gif"/>
+			<button id="start" class="big-button" type="button"></button>
+		</div>
+		<div id="story" style="display:none">
+			<div id="tome">
+				<span class="yellow-text">TRAPPED!</span>  As a legendary hero, you've been in your fair share of rough spots.  But when you went after the ancient Lich, Duhrigol, in
+				the Tombs of Shadow, you nearly met your match.  As you struck forth with the killing blow, the dying Lich cast his most powerful spell: the Doom Hex.<br><br>
+				Although you managed to destroy Duhrigol, the Hex transported you to his underground dungeon.  Even worse, you were afflicted by it's terrible curse: you will
+				grow weaker and weaker as you spend more time in the dungeon!<br><br>
+				You must escape...or die.
+			</div>
+			<button id="create-hero" class="big-button" type="button"></button>
+		</div>
+		<div id="hero-menu" style="display:none">
+			<h1>Create Hero</h1>
+			<div id="templar-select" role="button" class="hero-select">Templar</div>
+			<div id="archdruid-select" role="button" class="hero-select">Archdruid</div>
+			<div id="shadowmaster-select" role="button" class="hero-select">Shadowmaster</div>
+			<div id="powers-menu">
+				<div id="hero-menu-customize"style="display:none">
+					Customize <span id="hero-type"></span> Powers<br>
+					<div id="hero-menu-stats">
+						<table cellpadding="0" cellspacing="0">
+							<tr>
+								<td>Health Points</td><td class="yellow-text" id="hero-menu-stats-hp">1</td>
+							</tr>
+							<tr>
+								<td>Mana Points</td><td class="yellow-text" id="hero-menu-stats-mp">2</td>
+							</tr>
+							<tr>
+								<td>Melee Damage</td><td class="yellow-text" id="hero-menu-stats-md">3</td>
+							</tr>
+							<tr>
+								<td>Magic Ability</td><td class="yellow-text" id="hero-menu-stats-ma">4</td>
+							</tr>
+							<tr>
+								<td>Armor</td><td class="yellow-text" id="hero-menu-stats-ar">4</td>
+							</tr>
+						</table>
+						<button id="play" class="med-button" type="button"></button>
+					</div>
+					<div id="power-description" style="display:none">
+
+					</div>
+					<div id="hero-menu-powers">
+						<table cellpadding="0" cellspacing="0">
+							<tr>
+								<td class="white-underline">Points Remaining</td>
+								<td colspan="2" id="points-remaining" class="green-text white-underline">0</td>
+							<tr>
+								<td id="powers-menu-1-name" class="power-name" data-power="1">Ability 1</td>
+								<td class="yellow-text power-point-holder" id="powers-menu-1-pts">0</td>
+								<td id="powers-allocate-1"><div role="button" class="plus">+</div> <div role="button" class="minus">-</div></td>
+							</tr>
+							<tr>
+								<td id="powers-menu-2-name" class="power-name" data-power="2">Ability 2</td>
+								<td class="yellow-text power-point-holder" id="powers-menu-2-pts">0</td>
+								<td id="powers-allocate-2"><div role="button" class="plus">+</div> <div role="button" class="minus">-</div></td>
+							</tr>
+							<tr>
+								<td id="powers-menu-3-name" class="power-name" data-power="3">Ability 3</td>
+								<td class="yellow-text power-point-holder" id="powers-menu-3-pts">0</td>
+								<td id="powers-allocate-3"><div role="button" class="plus">+</div> <div role="button" class="minus">-</div></td>
+							</tr>
+							<tr>
+								<td id="powers-menu-4-name" class="power-name" data-power="4">Ability 4</td>
+								<td class="yellow-text power-point-holder" id="powers-menu-4-pts">0</td>
+								<td id="powers-allocate-4"><div role="button" class="plus">+</div> <div role="button" class="minus">-</div></td>
+							</tr>
+							<tr>
+								<td id="powers-menu-5-name" class="power-name" data-power="5">Ability 5</td>
+								<td class="yellow-text power-point-holder" id="powers-menu-5-pts">0</td>
+								<td id="powers-allocate-5"><div role="button" class="plus">+</div> <div role="button" class="minus">-</div></td>
+							</tr>
+						</table>
+					</div>
+					<div style="clear:both"></div>
+				</div>
+			</div>
+		</div>
+		<div id="game" style="display:none">
+			<div id="viewport">
+				<div id="instructions">
+					You must fight through a series of enemies to escape!
+					Until you do, the Doom Hex will weaken you every 10 seconds.
+					Target enemies by clicking on them, then click your abilities to fight!
+					<button id="go" class="med-button" type="button"></button>
+				</div>
+				<div id="combat-log"></div>
+			</div>
+			<div id="hex-warning" style="display:none"></div>
+			<div id="hex-panel">
+				<img id="hex-face" src="img/hex-face.png">
+				<div id="hex-timer">10</div>
+				<div id="hex-description"></div>
+			</div>
+			<div id="game-panel">
+				<div id="combat-choices">
+					<h2>Combat</h2>
+					<div id="combat-powers" style="display:none">
+						<div id="use-melee" class="combat-list" role="button" data-use-type="melee"><div class='power-cooldown' data-use-type='melee'></div>Melee Attack</div>
+					</div>
+				</div>
+				<div id="hero-info">
+					<h2>Hero</h2>
+					<div class="stats-inline">HP</div><div id="hero-hp-num" class="stats-inline yellow-text">00</div>
+					<div id="hero-hp-bar" class="stats-inline hero-bar"><div id="hp-bar-fill"></div></div>
+					<div class="stats-inline">MP</div><div id="hero-mp-num" class="stats-inline yellow-text">00</div>
+					<div id="hero-mp-bar" class="stats-inline hero-bar"><div id="mp-bar-fill"></div></div>
+					<div id="hero-portrait"></div>
+					<div class="stats-inline">MD</div><div id="hero-md-num" class="stats-inline yellow-text">00-00</div><br><br>
+					<div class="stats-inline">MA</div><div id="hero-ma-num" class="stats-inline yellow-text">00</div>
+					<div class="stats-inline">AR</div><div id="hero-ar-num" class="stats-inline yellow-text">00</div>
+				</div>
+			</div>
+		</div>
+		<div id="death" style="display:none">
+			<div>You have died!<br><br>Reload the page to try again!</div>
+		</div>
+		<div id="win" style="display:none">
+			<div>You have escaped!<br><br>As you leave the dungeon, you feel the Doom Hex begin to fade.  Nothing can stop you!<br><br>Reload to play again!</div>
+		</div>
+		<div id="message" style="display:none"><div id="msg-text"></div></div>
+	</div>
+	<div id="footer">
+		Made my Alex Yoder ("Omnus")<br>
+		<a href="http://omnus.cc">omnus.cc</a> | <a href="http://www.twitter.com/alex_yoder">@alex_yoder</a>
+</body>
+</html>
