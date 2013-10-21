@@ -63,7 +63,7 @@ var player = {
 					var damage = heroes.templar.powers[1].amounts[player.powerPoints[1]];
 					hitToTarget(damage);
 					setStat('MP', this.currMP - heroes[player.hero].powers[powerKey].cost);
-					cooldownLength = 8000;
+					cooldownLength = 7000;
 				} else if (actionType == "power" && player.hero == "templar" && powerKey == "3") {
 					actionIdent = $("#use-power-3");
 					actionBar = $("#use-power-3 .power-cooldown");
@@ -156,7 +156,7 @@ var heroes = {
 				name: "Vigor",
 				description: "Increases Health Points",
 				use: "passive",
-				amounts: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
+				amounts: [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
 				additions: null,
 				unit: "HP",
 				cost: null,
@@ -776,6 +776,7 @@ $(function() {
 	sounds_hit = $("#sound-hit")[0];
 	sounds_hex = $("#sound-hex")[0];
 	sounds_click = $("#sound-click")[0];
+	
 	$("button, .hero-select").click(function() {
 	  sounds_click.play();
 	});
